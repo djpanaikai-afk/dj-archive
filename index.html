@@ -89,6 +89,25 @@
             .flyer-img { border: 4px solid var(--groovy-black); }
         }
 
+        /* 詳細ページのフライヤー高さ調整 */
+        #detail-flyer {
+            width: 100%;
+            height: auto;
+            max-height: 400px; /* スマホ用 */
+            object-fit: cover;
+        }
+        @media (min-width: 768px) {
+            #detail-flyer {
+                max-height: 300px; /* PC用：高さを300pxに制限 */
+                width: auto;       /* 横幅は自動調整（縦横比維持） */
+                max-width: 100%;   /* 親要素からはみ出さない */
+                object-fit: contain; /* 全体を表示 */
+                background: var(--groovy-black); /* 縦長で余白が出る場合は黒で埋める */
+                display: block;
+                margin-left: 0;
+            }
+        }
+
         ::-webkit-scrollbar { width: 12px; }
         ::-webkit-scrollbar-track { background: var(--groovy-orange); }
         ::-webkit-scrollbar-thumb { 
@@ -123,7 +142,7 @@
             
             <div class="flex flex-col md:flex-row gap-8 md:gap-12 mb-12 md:mb-16 items-start">
                 <div id="detail-flyer-container" class="w-full md:w-2/5" style="display:none;">
-                    <img id="detail-flyer" onerror="this.parentElement.style.display='none'" class="w-full neo-box rounded-none flyer-img">
+                    <img id="detail-flyer" onerror="this.parentElement.style.display='none'" class="neo-box rounded-none flyer-img">
                 </div>
                 <div class="flex-1">
                     <h1 id="event-name" class="font-groovy text-3xl md:text-7xl leading-tight mb-4 md:mb-6"></h1>
@@ -179,7 +198,6 @@
                 const colors = ['var(--groovy-yellow)', 'var(--groovy-green)', 'var(--groovy-blue)'];
                 const bgColor = colors[idx % colors.length];
                 
-                // フライヤーがある時だけimgタグを生成
                 const flyerHtml = item.flyer 
                     ? `<img src="data/${item.flyer}" onerror="this.style.display='none'" class="w-full h-48 md:h-64 flyer-img" style="background:${bgColor}">`
                     : '';
@@ -223,7 +241,6 @@
                 descEl.classList.add('hidden');
             }
             
-            // 詳細画面のフライヤー表示
             const flyerImg = data.flyer ? `data/${data.flyer}` : null;
             const flyerContainer = document.getElementById('detail-flyer-container');
             if(flyerImg) {
