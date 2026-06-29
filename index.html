@@ -22,6 +22,7 @@
             color: var(--groovy-black);
             margin: 0;
             padding: 0;
+            word-wrap: break-word; /* 文字の強制折り返し */
         }
 
         h1, h2, h3, .font-groovy { 
@@ -32,12 +33,11 @@
         .neo-box {
             background: var(--groovy-cream);
             border: 4px solid var(--groovy-black);
-            box-shadow: 8px 8px 0px 0px var(--groovy-black);
+            box-shadow: 6px 6px 0px 0px var(--groovy-black);
             transition: all 0.2s ease;
         }
-        .neo-box:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 12px 12px 0px 0px var(--groovy-black);
+        @media (min-width: 768px) {
+            .neo-box { box-shadow: 8px 8px 0px 0px var(--groovy-black); }
         }
 
         nav {
@@ -49,9 +49,13 @@
             background: var(--groovy-cream);
             border: 2px solid var(--groovy-black);
             font-weight: 800;
-            padding: 0.5rem 1rem;
-            box-shadow: 4px 4px 0px 0px var(--groovy-black);
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+            box-shadow: 3px 3px 0px 0px var(--groovy-black);
             transition: all 0.1s;
+        }
+        @media (min-width: 768px) {
+            .tag-btn { font-size: 0.875rem; padding: 0.5rem 1rem; box-shadow: 4px 4px 0px 0px var(--groovy-black); }
         }
         .tag-btn.active {
             background: var(--groovy-yellow);
@@ -70,71 +74,62 @@
             background: var(--groovy-blue);
             border: 2px solid var(--groovy-black);
             padding: 4px 8px;
-            margin-top: 8px;
-            font-size: 0.75rem;
+            margin-top: 6px;
+            font-size: 0.7rem;
             font-weight: 700;
             display: inline-block;
+            width: fit-content;
         }
 
         .flyer-img {
-            border: 4px solid var(--groovy-black);
+            border: 3px solid var(--groovy-black);
             object-fit: cover;
         }
-
-        ::-webkit-scrollbar { width: 12px; }
-        ::-webkit-scrollbar-track { background: var(--groovy-orange); }
-        ::-webkit-scrollbar-thumb { 
-            background: var(--groovy-black); 
-            border: 3px solid var(--groovy-orange);
-            border-radius: 10px;
+        @media (min-width: 768px) {
+            .flyer-img { border: 4px solid var(--groovy-black); }
         }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <nav class="sticky top-0 z-50 p-4 mb-8">
+    <nav class="sticky top-0 z-50 p-4 mb-6 md:mb-8">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-3xl font-groovy tracking-tighter">DJ ARCHIVE</a>
-            <div class="bg-black text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest">Library</div>
+            <a href="index.html" class="text-xl md:text-3xl font-groovy tracking-tighter">DJ ARCHIVE</a>
+            <div class="bg-black text-white px-2 py-0.5 md:px-3 md:py-1 text-[8px] md:text-[10px] font-bold uppercase tracking-widest">Library</div>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-6 pb-24">
+    <main class="max-w-6xl mx-auto px-4 md:px-6 pb-24">
         
-        <!-- リスト表示 (2カラム設定) -->
+        <!-- 一覧表示 -->
         <div id="list-view" class="hidden">
-            <div class="mb-12 flex flex-wrap gap-4 justify-center" id="tag-filter">
+            <div class="mb-8 md:mb-12 flex flex-wrap gap-2 md:gap-4 justify-center" id="tag-filter">
                 <button onclick="filterByTag('all')" class="tag-btn active">ALL SETS</button>
             </div>
 
-            <div id="archive-grid" class="grid gap-10 md:grid-cols-2">
-                <!-- 2カラムでカードが入ります -->
-            </div>
+            <div id="archive-grid" class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-2"></div>
         </div>
 
         <!-- 詳細表示 -->
         <div id="detail-view" class="hidden">
-            <button onclick="showList()" class="mb-8 font-groovy text-xl hover:underline italic">← BACK TO LIST</button>
+            <button onclick="showList()" class="mb-6 md:mb-8 font-groovy text-lg md:text-xl hover:underline italic">← BACK TO LIST</button>
             
-            <div class="flex flex-col md:flex-row gap-12 mb-16 items-start">
+            <div class="flex flex-col md:flex-row gap-8 md:gap-12 mb-12 md:mb-16 items-start">
                 <div id="detail-flyer-container" class="w-full md:w-2/5">
                     <img id="detail-flyer" class="w-full neo-box rounded-none flyer-img">
                 </div>
                 <div class="flex-1">
-                    <h1 id="event-name" class="font-groovy text-5xl md:text-7xl leading-none mb-6"></h1>
-                    <div class="flex flex-wrap gap-4 mb-8">
-                        <span id="event-date" class="bg-white border-2 border-black px-4 py-1 font-bold shadow-[4px_4px_0_0_#000]"></span>
-                        <span id="event-venue" class="bg-white border-2 border-black px-4 py-1 font-bold shadow-[4px_4px_0_0_#000]"></span>
+                    <h1 id="event-name" class="font-groovy text-3xl md:text-7xl leading-tight mb-4 md:mb-6"></h1>
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <span id="event-date" class="bg-white border-2 border-black px-3 py-1 text-xs md:text-base font-bold shadow-[3px_3px_0_0_#000] md:shadow-[4px_4px_0_0_#000]"></span>
+                        <span id="event-venue" class="bg-white border-2 border-black px-3 py-1 text-xs md:text-base font-bold shadow-[3px_3px_0_0_#000] md:shadow-[4px_4px_0_0_#000]"></span>
                     </div>
-                    <!-- 説明がある時だけ表示 -->
-                    <p id="event-description" class="hidden text-xl font-medium leading-relaxed p-6 bg-[#90ee4c] border-4 border-black shadow-[8px_8px_0_0_#000]"></p>
-                    <div id="event-tags" class="flex gap-2 mt-8"></div>
+                    <p id="event-description" class="hidden text-sm md:text-xl font-medium leading-relaxed p-4 md:p-6 bg-[#90ee4c] border-4 border-black shadow-[6px_6px_0_0_#000] md:shadow-[8px_8px_0_0_#000]"></p>
+                    <div id="event-tags" class="flex flex-wrap gap-2 mt-6"></div>
                 </div>
             </div>
 
-            <div id="track-list" class="neo-box overflow-hidden">
-                <!-- 曲リスト -->
-            </div>
+            <div id="track-list" class="neo-box overflow-hidden"></div>
         </div>
     </main>
 
@@ -172,22 +167,21 @@
             data.forEach((item, idx) => {
                 const card = document.createElement('a');
                 card.href = `?id=${item.id}`;
-                // 2カラム用にコンパクトな縦長レイアウトに調整
-                card.className = "neo-box p-6 flex flex-col gap-4";
+                card.className = "neo-box p-4 md:p-6 flex flex-col gap-4";
                 
                 const flyerImg = item.flyer ? `data/${item.flyer}` : 'https://via.placeholder.com/400?text=NO+IMAGE';
                 const colors = ['var(--groovy-yellow)', 'var(--groovy-green)', 'var(--groovy-blue)'];
                 const bgColor = colors[idx % colors.length];
                 
                 card.innerHTML = `
-                    <img src="${flyerImg}" class="w-full h-64 flyer-img" style="background:${bgColor}">
+                    <img src="${flyerImg}" class="w-full h-48 md:h-64 flyer-img" style="background:${bgColor}">
                     <div class="flex-1">
-                        <div class="text-[10px] font-bold mb-2 uppercase tracking-tighter bg-black text-white inline-block px-2">${item.date}</div>
-                        <h3 class="font-groovy text-3xl leading-tight mb-3">${item.event_name}</h3>
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            ${(item.tags || []).map(t => `<span class="font-bold text-[10px] bg-white border border-black px-1">#${t}</span>`).join('')}
+                        <div class="text-[8px] md:text-[10px] font-bold mb-1 md:mb-2 uppercase tracking-tighter bg-black text-white inline-block px-2">${item.date}</div>
+                        <h3 class="font-groovy text-xl md:text-3xl leading-tight mb-2 md:mb-3">${item.event_name}</h3>
+                        <div class="flex flex-wrap gap-1 mb-2">
+                            ${(item.tags || []).map(t => `<span class="font-bold text-[8px] md:text-[10px] bg-white border border-black px-1">#${t}</span>`).join('')}
                         </div>
-                        <div class="font-bold text-sm italic uppercase tracking-widest text-gray-600">@ ${item.venue || 'Space'}</div>
+                        <div class="font-bold text-[10px] md:text-sm italic uppercase tracking-widest text-gray-600">@ ${item.venue || 'Space'}</div>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -210,7 +204,6 @@
             document.getElementById('event-date').textContent = data.date;
             document.getElementById('event-venue').textContent = data.venue || 'UNKNOWN';
             
-            // 説明文の有無で表示を切り替え
             const descEl = document.getElementById('event-description');
             if (data.description && data.description.trim() !== "") {
                 descEl.textContent = data.description;
@@ -220,22 +213,27 @@
             }
             
             const flyerImg = data.flyer ? `data/${data.flyer}` : null;
-            if(flyerImg) document.getElementById('detail-flyer').src = flyerImg;
-            else document.getElementById('detail-flyer-container').style.display = 'none';
+            if(flyerImg) {
+                document.getElementById('detail-flyer').src = flyerImg;
+                document.getElementById('detail-flyer-container').style.display = 'block';
+            } else {
+                document.getElementById('detail-flyer-container').style.display = 'none';
+            }
 
             const list = document.getElementById('track-list');
-            list.innerHTML = ''; // 初期化
+            list.innerHTML = '';
             data.tracks.forEach((track, index) => {
                 const artworkUrl = track.artwork ? `data/${track.artwork}` : 'data/artworks/default.jpg';
                 const row = document.createElement('div');
-                row.className = "track-card flex items-center p-6";
+                row.className = "track-card flex items-start md:items-center p-4 md:p-6";
                 row.innerHTML = `
-                    <div class="w-12 font-groovy text-2xl">${index + 1}</div>
-                    <img src="${artworkUrl}" onerror="this.src='data/artworks/default.jpg'" class="w-16 h-16 border-2 border-black mr-6 flex-shrink-0">
+                    <div class="w-8 md:w-12 font-groovy text-lg md:text-2xl mt-1 md:mt-0">${index + 1}</div>
+                    <img src="${artworkUrl}" onerror="this.src='data/artworks/default.jpg'" class="w-12 h-12 md:w-16 md:h-16 border-2 border-black mr-4 md:mr-6 flex-shrink-0">
                     <div class="flex-1 min-w-0">
-                        <div class="font-bold text-xl truncate">${track.title}</div>
-                        <div class="text-sm font-bold uppercase italic">${track.artist}</div>
-                        ${track.comment ? `<div class="comment-box uppercase">💬 ${track.comment}</div>` : ''}
+                        <!-- 曲名：truncateを削除し、サイズを可変に -->
+                        <div class="font-bold text-sm md:text-xl leading-tight break-words mb-0.5 md:mb-1">${track.title}</div>
+                        <div class="text-[10px] md:text-sm font-bold uppercase italic text-gray-700">${track.artist}</div>
+                        ${track.comment ? `<div class="comment-box leading-normal uppercase">💬 ${track.comment}</div>` : ''}
                     </div>
                 `;
                 list.appendChild(row);
