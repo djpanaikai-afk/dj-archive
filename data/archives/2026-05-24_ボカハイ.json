@@ -1,0 +1,150 @@
+{
+    "id": "2026-05-24_ボカハイ",
+    "event_name": "ボカハイ",
+    "venue": "月あかり夢てらす",
+    "date": "2026-05-24",
+    "tags": [
+        "ボカロ"
+    ],
+    "description": "",
+    "tracks": [
+        {
+            "title": "露骨な逃走プリンセス",
+            "artist": "うたたP",
+            "album": "EXIT TUNES PRESENTS Entrance Dream Music",
+            "artwork": null
+        },
+        {
+            "title": "Sweet Devil",
+            "artist": "初音ミク",
+            "album": "DJ Lily Presents SUPER VOCALOID",
+            "artwork": null
+        },
+        {
+            "title": "システマティック・ラヴ",
+            "artist": "かめりあ",
+            "album": "EXIT TUNES PRESENTS Entrance Dream Music 2",
+            "artwork": null
+        },
+        {
+            "title": "女言葉の消失",
+            "artist": "Sota Fujimori",
+            "album": "EXIT TUNES PRESENTS Entrance Dream Music",
+            "artwork": null
+        },
+        {
+            "title": "true my heart -HATSUNE mix-",
+            "artist": "ave;new Feat. 初音ミク",
+            "album": "new;Fable",
+            "artwork": "artworks/132608788.jpg"
+        },
+        {
+            "title": "深海少女 (feat. 花里みのり&桐谷遥&桃井愛莉&日野森雫&初音ミク)",
+            "artist": "MORE MORE JUMP！",
+            "album": "MORE MORE JUMP！ SEKAI ALBUM vol.2",
+            "artwork": "artworks/43609060.jpg"
+        },
+        {
+            "title": "ツギハギスタッカート",
+            "artist": "とあ Feat. 初音ミク",
+            "album": "EXIT TUNES PRESENTS VOCALOFANTASY Feat. 初音ミク",
+            "artwork": "artworks/202053540.jpg"
+        },
+        {
+            "title": "VIP STAR",
+            "artist": null,
+            "album": null,
+            "artwork": null
+        },
+        {
+            "title": "ダブルラリアット",
+            "artist": "アゴアニキ Feat. 巡音ルカ",
+            "album": "VOCALOID BEST from ニコニコ動画 (あお)",
+            "artwork": "artworks/17477549.jpg"
+        },
+        {
+            "title": "Glory 3usi9",
+            "artist": "ほえほえP feat. 初音ミク",
+            "album": "Hatsune Miku Thank you 1826 Days ~SEGA feat. HATSUNE MIKU Project 5th Anniversary Selection~",
+            "artwork": null
+        },
+        {
+            "title": "アンドロメダアンドロメダ",
+            "artist": "ナユタン星人",
+            "album": "ナユタン星からの物体X (remake)",
+            "artwork": null
+        },
+        {
+            "title": "恋スル侵略計画",
+            "artist": "ナユタン星人",
+            "album": "ナユタン星からの物体Z",
+            "artwork": null
+        },
+        {
+            "title": "キティ Short Edit",
+            "artist": "25時、ナイトコードで。",
+            "album": "ザムザ/キティ",
+            "artwork": null
+        },
+        {
+            "title": "セツナトリップ ワカメを冷ます SDVX Edit",
+            "artist": "Last Note. Feat. GUMI",
+            "album": "EXIT TUNES PRESENTS Vocaloconnection Feat. 初音ミク",
+            "artwork": null
+        },
+        {
+            "title": "シャルル",
+            "artist": "バルーン",
+            "album": "Desktop Magicians",
+            "artwork": "artworks/107208381.jpg"
+        },
+        {
+            "title": "僕らまだアンダーグラウンド (feat. 星乃一歌&日野森志歩&初音ミク)",
+            "artist": "Leo/need",
+            "album": "Leo/need SEKAI ALBUM vol.2",
+            "artwork": "artworks/117079024.jpg"
+        },
+        {
+            "title": "ドラマツルギー",
+            "artist": "星乃一歌 (野口瑠璃子) & 初音ミク",
+            "album": "Leo/need SEKAI ALBUM vol. 1",
+            "artwork": "artworks/261050412.jpg"
+        },
+        {
+            "title": "バレリーコ",
+            "artist": "ミキト(みきとP)",
+            "album": "GOOD SCHOOL GIRL 通常盤",
+            "artwork": "artworks/102696227.jpg"
+        },
+        {
+            "title": "ロキ",
+            "artist": "星乃一歌 (野口瑠璃子) & 初音ミク",
+            "album": "Leo/need SEKAI ALBUM vol. 1",
+            "artwork": "artworks/18482677.jpg"
+        },
+        {
+            "title": "デーモンロード",
+            "artist": "Kanaria",
+            "album": "デーモンロード",
+            "artwork": "artworks/91241763.jpg"
+        },
+        {
+            "title": "DOGMA (feat. 初音ミク)",
+            "artist": "wotaku",
+            "album": "DOGMA",
+            "artwork": "artworks/240142410.jpg"
+        },
+        {
+            "title": "QUEEN",
+            "artist": "Kanaria",
+            "album": "Kanaria.code",
+            "artwork": "artworks/147684926.jpg"
+        },
+        {
+            "title": "エンヴィーベイビー",
+            "artist": "Kanaria",
+            "album": "Kanaria.code",
+            "artwork": "artworks/10081301.jpg"
+        }
+    ]
+}
