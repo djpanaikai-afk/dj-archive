@@ -1,0 +1,133 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Archive Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass { background: rgba(31, 41, 55, 0.7); backdrop-filter: blur(10px); }
+        .track-card { transition: 0.2s; border: 1px solid transparent; }
+        .track-card:hover { border-color: rgba(6, 182, 212, 0.5); background: rgba(55, 65, 81, 0.4); }
+        .tag-btn.active { background-color: #06b6d4; color: white; border-color: #06b6d4; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen font-sans">
+    <nav class="border-b border-gray-800 p-4 mb-8 glass sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black tracking-tighter text-cyan-400">DJ ARCHIVE</a>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 pb-20">
+        <div id="list-view" class="hidden">
+            <div class="mb-10">
+                <h2 class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-4">Filter by Tags</h2>
+                <div id="tag-filter" class="flex flex-wrap gap-2">
+                    <button onclick="filterByTag('all')" class="tag-btn px-4 py-1 rounded-full border border-gray-700 text-xs hover:border-cyan-500 active transition">All</button>
+                </div>
+            </div>
+            <div id="archive-grid" class="grid gap-6 md:grid-cols-2"></div>
+        </div>
+
+        <div id="detail-view" class="hidden">
+            <button onclick="showList()" class="mb-6 text-gray-400 hover:text-white flex items-center transition text-sm">← Back to List</button>
+            <div id="detail-header" class="mb-10">
+                <h1 id="event-name" class="text-4xl md:text-6xl font-black mb-4 leading-tight"></h1>
+                <div class="flex flex-wrap gap-6 text-sm text-gray-400 font-mono">
+                    <span id="event-date"></span>
+                    <span id="event-venue"></span>
+                </div>
+                <p id="event-description" class="mt-8 text-gray-300 leading-relaxed max-w-2xl border-l-2 border-gray-700 pl-6 italic"></p>
+                <div id="event-tags" class="flex gap-2 mt-8"></div>
+            </div>
+            <div id="track-list" class="space-y-1"></div>
+        </div>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const archiveId = urlParams.get('id');
+        let allArchives = [];
+
+        async function init() {
+            if (archiveId) await loadDetail(archiveId);
+            else await loadList();
+        }
+
+        async function loadList() {
+            document.getElementById('list-view').classList.remove('hidden');
+            const res = await fetch('data/index.json');
+            allArchives = await res.json();
+            
+            const tags = new Set();
+            allArchives.forEach(item => item.tags?.forEach(t => tags.add(t)));
+            const tagContainer = document.getElementById('tag-filter');
+            tags.forEach(tag => {
+                const btn = document.createElement('button');
+                btn.className = "tag-btn px-4 py-1 rounded-full border border-gray-700 text-xs hover:border-cyan-500 transition";
+                btn.textContent = tag;
+                btn.onclick = () => filterByTag(tag, btn);
+                tagContainer.appendChild(btn);
+            });
+            renderGrid(allArchives);
+        }
+
+        function renderGrid(data) {
+            const grid = document.getElementById('archive-grid');
+            grid.innerHTML = '';
+            data.forEach(item => {
+                const card = document.createElement('a');
+                card.href = `?id=${item.id}`;
+                card.className = "block p-8 bg-gray-800/50 rounded-2xl border border-gray-800 hover:border-cyan-900/50 hover:bg-gray-800 transition shadow-2xl group";
+                card.innerHTML = `
+                    <div class="text-[10px] text-cyan-500 font-bold mb-3 uppercase tracking-[0.2em]">${item.date}</div>
+                    <h3 class="text-2xl font-bold group-hover:text-cyan-400 transition mb-3">${item.event_name}</h3>
+                    <div class="flex gap-1.5 mb-4 flex-wrap">
+                        ${(item.tags || []).map(t => `<span class="text-[9px] bg-black/40 px-2 py-0.5 rounded text-gray-500 font-mono">#${t}</span>`).join('')}
+                    </div>
+                    <div class="text-xs text-gray-500 font-mono italic">${item.venue || 'No Venue'}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterByTag(tag, btn) {
+            document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            else document.querySelector('button[onclick*="all"]').classList.add('active');
+            renderGrid(tag === 'all' ? allArchives : allArchives.filter(item => item.tags?.includes(tag)));
+        }
+
+        async function loadDetail(id) {
+            document.getElementById('detail-view').classList.remove('hidden');
+            const res = await fetch(`data/archives/${id}.json`);
+            const data = await res.json();
+            document.getElementById('event-name').textContent = data.event_name;
+            document.getElementById('event-date').textContent = `DATE: ${data.date}`;
+            document.getElementById('event-venue').textContent = `LOCATION: ${data.venue || 'UNKNOWN'}`;
+            document.getElementById('event-description').textContent = data.description;
+            
+            const list = document.getElementById('track-list');
+            data.tracks.forEach((track, index) => {
+                const artworkUrl = track.artwork ? `data/${track.artwork}` : 'data/artworks/default.jpg';
+                const row = document.createElement('div');
+                row.className = "flex items-center p-3 glass rounded-lg track-card";
+                row.innerHTML = `
+                    <div class="w-8 text-gray-700 font-mono text-xs">${index + 1}</div>
+                    <img src="${artworkUrl}" onerror="this.src='data/artworks/default.jpg'" class="w-12 h-12 object-cover rounded-md mr-4 shadow-lg">
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold truncate text-gray-100 text-sm">${track.title}</div>
+                        <div class="text-xs text-cyan-500 truncate font-medium">${track.artist}</div>
+                    </div>
+                `;
+                list.appendChild(row);
+            });
+        }
+
+        function showList() { window.location.href = 'index.html'; }
+        init();
+    </script>
+</body>
+</html>
