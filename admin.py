@@ -69,18 +69,30 @@ with tab1:
             st.stop()
 
     st.divider()
-    st.header("2. 曲目とコメントの編集")
+    st.header("2. 曲目・曲名・コメントの編集")
+    st.info("「曲名」を書き換えるとWebサイトの表示も変わります。不要な曲は「公開」のチェックを外してください。")
+    
     final_track_list = []
     for i, t in enumerate(current_data["tracks"]):
-        col_show, col_info, col_comm = st.columns([0.5, 3, 4])
+        col_show, col_title, col_artist, col_comm = st.columns([0.5, 3, 2, 4])
+        
         with col_show:
             is_visible = st.checkbox("公開", value=True, key=f"{unique_prefix}_show_{i}")
-        with col_info:
-            st.markdown(f"**{t['title']}** / {t['artist']}")
+        
+        with col_title:
+            # 曲名を編集できるようにテキスト入力に変更
+            edited_title = st.text_input("曲名", value=t['title'], key=f"{unique_prefix}_title_{i}")
+        
+        with col_artist:
+            # アーティスト名は基本変えないことが多いので表示のみ（必要ならここもtext_inputにできます）
+            st.markdown(f"<div style='margin-top:28px; color:gray; font-size:0.8em;'>{t['artist']}</div>", unsafe_allow_html=True)
+        
         with col_comm:
             edited_comment = st.text_input("コメント", value=t.get('comment', ''), key=f"{unique_prefix}_comm_{i}")
+        
         if is_visible:
             t_copy = t.copy()
+            t_copy['title'] = edited_title # 編集後のタイトルを保存
             t_copy['comment'] = edited_comment
             final_track_list.append(t_copy)
 
@@ -138,8 +150,10 @@ with tab1:
                 else:
                     art_path = t.get('artwork')
                 save_tracks.append({
-                    "title": t['title'], "artist": t['artist'],
-                    "comment": t['comment'], "artwork": art_path
+                    "title": t['title'], # 編集したタイトルがここに反映されます
+                    "artist": t['artist'],
+                    "comment": t['comment'],
+                    "artwork": art_path
                 })
             new_archive_data = {
                 "id": archive_id, "event_name": event_name, "venue": venue,
@@ -154,16 +168,12 @@ with tab1:
             with open(f"data/archives/{archive_id}.json", "w", encoding="utf-8") as f:
                 json.dump(new_archive_data, f, indent=4, ensure_ascii=False)
             
-            # --- エラー箇所修正: index_data という変数名に統一 ---
             index_data_list = []
             if index_path.exists():
                 with open(index_path, "r", encoding="utf-8") as f:
                     index_data_list = json.load(f)
             
-            # リスト内包表記で既存の同じID（または古いID）を削除
             index_data_list = [i for i in index_data_list if i['id'] != archive_id and (not old_id or i['id'] != old_id)]
-            
-            # 新しい情報を追加
             index_data_list.append({
                 "id": archive_id, "event_name": event_name, "date": str(event_date),
                 "track_count": len(save_tracks), "venue": venue, "tags": final_tags, "flyer": flyer_rel_path
