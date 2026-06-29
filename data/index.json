@@ -20,5 +20,16 @@
             "音ゲー"
         ],
         "flyer": "flyers/2026-05-20_カワサキゴエフ.jpg"
+    },
+    {
+        "id": "2026-05-14_Laぶい",
+        "event_name": "Laぶい",
+        "date": "2026-05-14",
+        "track_count": 25,
+        "venue": "秋葉原 雷神",
+        "tags": [
+            "Vtuber"
+        ],
+        "flyer": null
     }
 ]

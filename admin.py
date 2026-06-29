@@ -41,7 +41,6 @@ with tab1:
             st.session_state.editing_data = None
             st.rerun()
         current_data = st.session_state.editing_data
-        # 編集モード用のユニークID
         unique_prefix = current_data.get('id', 'edit')
     else:
         st.header("1. Rekordboxから履歴を選択")
@@ -54,7 +53,6 @@ with tab1:
             selected_history = histories[selected_idx]
             original_tracks = reader.get_tracks_from_history(selected_history.ID)
             
-            # 新規作成用の初期データ構造
             current_data = {
                 "id": None,
                 "event_name": selected_history.Name,
@@ -65,7 +63,6 @@ with tab1:
                 "tracks": [{"title": getattr(t, 'Title', 'Unknown'), "artist": getattr(t, 'ArtistName', 'Unknown'), "comment": getattr(t, 'Commnt', ''), "original_obj": t} for t in original_tracks],
                 "flyer": None
             }
-            # 新規作成用のユニークID（履歴IDを使うことで切り替え時にリセットされる）
             unique_prefix = str(selected_history.ID)
         except Exception as e:
             st.error(f"接続エラー: {e}")
@@ -73,21 +70,15 @@ with tab1:
 
     st.divider()
     st.header("2. 曲目とコメントの編集")
-    
     final_track_list = []
     for i, t in enumerate(current_data["tracks"]):
         col_show, col_info, col_comm = st.columns([0.5, 3, 4])
-        
-        # 重要な修正: keyにunique_prefixを含めることで、履歴切り替え時に確実にリセットする
         with col_show:
             is_visible = st.checkbox("公開", value=True, key=f"{unique_prefix}_show_{i}")
-        
         with col_info:
             st.markdown(f"**{t['title']}** / {t['artist']}")
-        
         with col_comm:
             edited_comment = st.text_input("コメント", value=t.get('comment', ''), key=f"{unique_prefix}_comm_{i}")
-        
         if is_visible:
             t_copy = t.copy()
             t_copy['comment'] = edited_comment
@@ -100,12 +91,11 @@ with tab1:
     existing_tags = set()
     if index_path.exists():
         with open(index_path, "r", encoding="utf-8") as f:
-            idx_data = json.load(f)
-            for item in idx_data:
+            idx_data_temp = json.load(f)
+            for item in idx_data_temp:
                 for tag in item.get('tags', []): existing_tags.add(tag)
 
     with col1:
-        # メタデータ入力欄もユニークキーで保護
         event_name = st.text_input("イベント名", value=current_data["event_name"], key=f"{unique_prefix}_evname")
         venue = st.text_input("会場 / 配信名", value=current_data["venue"], key=f"{unique_prefix}_venue")
         uploaded_flyer = st.file_uploader("フライヤー画像を更新 (任意)", type=['jpg', 'jpeg', 'png'], key=f"{unique_prefix}_flyer")
@@ -164,17 +154,24 @@ with tab1:
             with open(f"data/archives/{archive_id}.json", "w", encoding="utf-8") as f:
                 json.dump(new_archive_data, f, indent=4, ensure_ascii=False)
             
-            idx_data = []
+            # --- エラー箇所修正: index_data という変数名に統一 ---
+            index_data_list = []
             if index_path.exists():
-                with open(index_path, "r", encoding="utf-8") as f: idx_data = json.load(f)
-            idx_data = [i for i in index_data if i['id'] != archive_id and (not old_id or i['id'] != old_id)]
-            idx_data.append({
+                with open(index_path, "r", encoding="utf-8") as f:
+                    index_data_list = json.load(f)
+            
+            # リスト内包表記で既存の同じID（または古いID）を削除
+            index_data_list = [i for i in index_data_list if i['id'] != archive_id and (not old_id or i['id'] != old_id)]
+            
+            # 新しい情報を追加
+            index_data_list.append({
                 "id": archive_id, "event_name": event_name, "date": str(event_date),
                 "track_count": len(save_tracks), "venue": venue, "tags": final_tags, "flyer": flyer_rel_path
             })
-            idx_data.sort(key=lambda x: x['date'], reverse=True)
+            index_data_list.sort(key=lambda x: x['date'], reverse=True)
+            
             with open(index_path, "w", encoding="utf-8") as f:
-                json.dump(idx_data, f, indent=4, ensure_ascii=False)
+                json.dump(index_data_list, f, indent=4, ensure_ascii=False)
             
             st.success("保存完了！")
             st.session_state.editing_data = None
@@ -185,8 +182,8 @@ with tab2:
     st.header("📁 アーカイブの管理")
     if index_path.exists():
         with open(index_path, "r", encoding="utf-8") as f:
-            index_data = json.load(f)
-        for item in index_data:
+            index_data_display = json.load(f)
+        for item in index_data_display:
             col_info, col_edit, col_del = st.columns([4, 1, 1])
             with col_info:
                 st.write(f"**{item['date']} - {item['event_name']}**")
@@ -199,7 +196,7 @@ with tab2:
                 if st.button("削除", key=f"delbtn_{item['id']}"):
                     json_file = Path(f"data/archives/{item['id']}.json")
                     if json_file.exists(): os.remove(json_file)
-                    new_index = [i for i in index_data if i['id'] != item['id']]
+                    new_index = [i for i in index_data_display if i['id'] != item['id']]
                     with open(index_path, "w", encoding="utf-8") as f:
                         json.dump(new_index, f, indent=4, ensure_ascii=False)
                     st.rerun()
