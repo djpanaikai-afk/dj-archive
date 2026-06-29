@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ Archive - LET IT GO Edition</title>
+    <title>DJ ARCHIVE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -29,7 +29,6 @@
             text-transform: uppercase;
         }
 
-        /* ネオ・ブルータリズム：太い境界線と影 */
         .neo-box {
             background: var(--groovy-cream);
             border: 4px solid var(--groovy-black);
@@ -41,13 +40,11 @@
             box-shadow: 12px 12px 0px 0px var(--groovy-black);
         }
 
-        /* ナビゲーション */
         nav {
             background: var(--groovy-cream);
             border-bottom: 4px solid var(--groovy-black);
         }
 
-        /* タグボタン */
         .tag-btn {
             background: var(--groovy-cream);
             border: 2px solid var(--groovy-black);
@@ -62,7 +59,6 @@
             box-shadow: 0px 0px 0px 0px var(--groovy-black);
         }
 
-        /* トラックカード */
         .track-card {
             border-bottom: 2px solid var(--groovy-black);
             transition: background 0.2s;
@@ -70,7 +66,6 @@
         .track-card:last-child { border-bottom: none; }
         .track-card:hover { background: var(--groovy-yellow); }
 
-        /* コメント */
         .comment-box {
             background: var(--groovy-blue);
             border: 2px solid var(--groovy-black);
@@ -81,13 +76,11 @@
             display: inline-block;
         }
 
-        /* フライヤーサムネイル */
         .flyer-img {
             border: 4px solid var(--groovy-black);
             object-fit: cover;
         }
 
-        /* スクロールバーのカスタマイズ */
         ::-webkit-scrollbar { width: 12px; }
         ::-webkit-scrollbar-track { background: var(--groovy-orange); }
         ::-webkit-scrollbar-thumb { 
@@ -101,21 +94,21 @@
 
     <nav class="sticky top-0 z-50 p-4 mb-8">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-3xl font-groovy tracking-tighter">LET IT GO ARCHIVE</a>
-            <div class="bg-black text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest">Live On Air</div>
+            <a href="index.html" class="text-3xl font-groovy tracking-tighter">DJ ARCHIVE</a>
+            <div class="bg-black text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest">Library</div>
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-6 pb-24">
+    <main class="max-w-6xl mx-auto px-6 pb-24">
         
-        <!-- リスト表示 -->
+        <!-- リスト表示 (2カラム設定) -->
         <div id="list-view" class="hidden">
             <div class="mb-12 flex flex-wrap gap-4 justify-center" id="tag-filter">
                 <button onclick="filterByTag('all')" class="tag-btn active">ALL SETS</button>
             </div>
 
-            <div id="archive-grid" class="grid gap-8">
-                <!-- ここにリストが入る -->
+            <div id="archive-grid" class="grid gap-10 md:grid-cols-2">
+                <!-- 2カラムでカードが入ります -->
             </div>
         </div>
 
@@ -133,7 +126,8 @@
                         <span id="event-date" class="bg-white border-2 border-black px-4 py-1 font-bold shadow-[4px_4px_0_0_#000]"></span>
                         <span id="event-venue" class="bg-white border-2 border-black px-4 py-1 font-bold shadow-[4px_4px_0_0_#000]"></span>
                     </div>
-                    <p id="event-description" class="text-xl font-medium leading-relaxed p-6 bg-[#90ee4c] border-4 border-black shadow-[8px_8px_0_0_#000]"></p>
+                    <!-- 説明がある時だけ表示 -->
+                    <p id="event-description" class="hidden text-xl font-medium leading-relaxed p-6 bg-[#90ee4c] border-4 border-black shadow-[8px_8px_0_0_#000]"></p>
                     <div id="event-tags" class="flex gap-2 mt-8"></div>
                 </div>
             </div>
@@ -178,22 +172,23 @@
             data.forEach((item, idx) => {
                 const card = document.createElement('a');
                 card.href = `?id=${item.id}`;
-                card.className = "neo-box p-8 flex flex-col md:flex-row gap-8 items-center";
+                // 2カラム用にコンパクトな縦長レイアウトに調整
+                card.className = "neo-box p-6 flex flex-col gap-4";
                 
                 const flyerImg = item.flyer ? `data/${item.flyer}` : 'https://via.placeholder.com/400?text=NO+IMAGE';
                 const colors = ['var(--groovy-yellow)', 'var(--groovy-green)', 'var(--groovy-blue)'];
                 const bgColor = colors[idx % colors.length];
                 
                 card.innerHTML = `
-                    <div class="flex-1 order-2 md:order-1">
-                        <div class="text-sm font-bold mb-2 uppercase tracking-tighter bg-black text-white inline-block px-2">${item.date}</div>
-                        <h3 class="font-groovy text-4xl md:text-5xl leading-tight mb-4">${item.event_name}</h3>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            ${(item.tags || []).map(t => `<span class="font-bold text-sm bg-white border border-black px-1">#${t}</span>`).join('')}
+                    <img src="${flyerImg}" class="w-full h-64 flyer-img" style="background:${bgColor}">
+                    <div class="flex-1">
+                        <div class="text-[10px] font-bold mb-2 uppercase tracking-tighter bg-black text-white inline-block px-2">${item.date}</div>
+                        <h3 class="font-groovy text-3xl leading-tight mb-3">${item.event_name}</h3>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            ${(item.tags || []).map(t => `<span class="font-bold text-[10px] bg-white border border-black px-1">#${t}</span>`).join('')}
                         </div>
-                        <div class="font-bold text-lg italic uppercase">@ ${item.venue || 'Space'}</div>
+                        <div class="font-bold text-sm italic uppercase tracking-widest text-gray-600">@ ${item.venue || 'Space'}</div>
                     </div>
-                    <img src="${flyerImg}" class="w-48 h-48 md:w-64 md:h-64 flyer-img order-1 md:order-2" style="background:${bgColor}">
                 `;
                 grid.appendChild(card);
             });
@@ -214,13 +209,22 @@
             document.getElementById('event-name').textContent = data.event_name;
             document.getElementById('event-date').textContent = data.date;
             document.getElementById('event-venue').textContent = data.venue || 'UNKNOWN';
-            document.getElementById('event-description').textContent = data.description || 'LET IT GO...';
+            
+            // 説明文の有無で表示を切り替え
+            const descEl = document.getElementById('event-description');
+            if (data.description && data.description.trim() !== "") {
+                descEl.textContent = data.description;
+                descEl.classList.remove('hidden');
+            } else {
+                descEl.classList.add('hidden');
+            }
             
             const flyerImg = data.flyer ? `data/${data.flyer}` : null;
             if(flyerImg) document.getElementById('detail-flyer').src = flyerImg;
             else document.getElementById('detail-flyer-container').style.display = 'none';
 
             const list = document.getElementById('track-list');
+            list.innerHTML = ''; // 初期化
             data.tracks.forEach((track, index) => {
                 const artworkUrl = track.artwork ? `data/${track.artwork}` : 'data/artworks/default.jpg';
                 const row = document.createElement('div');
