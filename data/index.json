@@ -34,9 +34,10 @@
         "event_name": "ボカハイ",
         "date": "2026-03-22",
         "track_count": 34,
-        "venue": "",
+        "venue": "月あかり夢てらす",
         "tags": [
             "ボカロ"
-        ]
+        ],
+        "flyer": null
     }
 ]
