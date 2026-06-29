@@ -3,133 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ Archive</title>
+    <title>DJ Archive - LET IT GO Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Serif+JP:wght@700&display=swap');
-        
-        body { 
-            font-family: 'Inter', sans-serif;
-            background-color: #faf7f2; /* 柔らかいサンドベージュ */
-            color: #44403c; /* 暖かいグレー */
+        :root {
+            --groovy-orange: #e45f2b;
+            --groovy-black: #26211d;
+            --groovy-yellow: #f7cb4d;
+            --groovy-green: #90ee4c;
+            --groovy-blue: #92c0f2;
+            --groovy-cream: #fff9f0;
         }
 
-        .header-font { font-family: 'Noto Serif JP', serif; }
+        body { 
+            font-family: 'Lexend', sans-serif;
+            background-color: var(--groovy-orange);
+            color: var(--groovy-black);
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3, .font-groovy { 
+            font-family: 'Syne', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* ネオ・ブルータリズム：太い境界線と影 */
+        .neo-box {
+            background: var(--groovy-cream);
+            border: 4px solid var(--groovy-black);
+            box-shadow: 8px 8px 0px 0px var(--groovy-black);
+            transition: all 0.2s ease;
+        }
+        .neo-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 12px 12px 0px 0px var(--groovy-black);
+        }
 
         /* ナビゲーション */
-        .glass { 
-            background: rgba(250, 247, 242, 0.9); 
-            backdrop-filter: blur(8px); 
-            border-bottom: 1px solid #e7e5e4;
-        }
-        
-        /* アーカイブカード */
-        .archive-card {
-            background: #ffffff;
-            border: 1px solid #e7e5e4;
-            border-radius: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-        }
-        .archive-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px -10px rgba(120, 113, 108, 0.2);
-            border-color: #a8a29e;
+        nav {
+            background: var(--groovy-cream);
+            border-bottom: 4px solid var(--groovy-black);
         }
 
-        /* フライヤー画像のコンテナ */
-        .flyer-thumb {
-            width: 120px;
-            height: 120px;
-            object-cover: cover;
-            border-radius: 1rem;
-            background: #f5f5f4;
+        /* タグボタン */
+        .tag-btn {
+            background: var(--groovy-cream);
+            border: 2px solid var(--groovy-black);
+            font-weight: 800;
+            padding: 0.5rem 1rem;
+            box-shadow: 4px 4px 0px 0px var(--groovy-black);
+            transition: all 0.1s;
+        }
+        .tag-btn.active {
+            background: var(--groovy-yellow);
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px 0px var(--groovy-black);
         }
 
         /* トラックカード */
-        .track-card { 
-            background: #ffffff;
-            border-bottom: 1px solid #f5f5f4;
+        .track-card {
+            border-bottom: 2px solid var(--groovy-black);
             transition: background 0.2s;
         }
-        .track-card:hover { background: #fffcf9; }
-
-        /* ボタン */
-        .tag-btn { 
-            background: #fff;
-            color: #78716c;
-            border: 1px solid #e7e5e4;
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.5rem 1.25rem;
-            border-radius: 9999px;
-            transition: all 0.2s;
-        }
-        .tag-btn.active { 
-            background: #44403c;
-            color: #faf7f2;
-            border-color: #44403c;
-        }
+        .track-card:last-child { border-bottom: none; }
+        .track-card:hover { background: var(--groovy-yellow); }
 
         /* コメント */
         .comment-box {
-            background: #fdfaf6;
-            border-left: 2px solid #d6d3d1;
-            padding: 4px 10px;
-            margin-top: 4px;
-            font-size: 0.7rem;
-            color: #78716c;
-            line-height: 1.5;
+            background: var(--groovy-blue);
+            border: 2px solid var(--groovy-black);
+            padding: 4px 8px;
+            margin-top: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        /* フライヤーサムネイル */
+        .flyer-img {
+            border: 4px solid var(--groovy-black);
+            object-fit: cover;
+        }
+
+        /* スクロールバーのカスタマイズ */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: var(--groovy-orange); }
+        ::-webkit-scrollbar-thumb { 
+            background: var(--groovy-black); 
+            border: 3px solid var(--groovy-orange);
+            border-radius: 10px;
         }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <nav class="glass sticky top-0 z-50 p-4">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-xl font-bold tracking-tight text-stone-800">DJ ARCHIVE</a>
-            <div class="text-[10px] font-mono text-stone-400 uppercase tracking-widest">Selected Library</div>
+    <nav class="sticky top-0 z-50 p-4 mb-8">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-groovy tracking-tighter">LET IT GO ARCHIVE</a>
+            <div class="bg-black text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest">Live On Air</div>
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto px-6 py-12">
+    <main class="max-w-5xl mx-auto px-6 pb-24">
         
-        <!-- 一覧画面 -->
+        <!-- リスト表示 -->
         <div id="list-view" class="hidden">
-            <header class="mb-16 text-center">
-                <h1 class="header-font text-3xl md:text-5xl text-stone-800 mb-4">Past Sessions</h1>
-                <div id="tag-filter" class="flex flex-wrap gap-2 justify-center mt-8">
-                    <button onclick="filterByTag('all')" class="tag-btn active">All</button>
-                </div>
-            </header>
+            <div class="mb-12 flex flex-wrap gap-4 justify-center" id="tag-filter">
+                <button onclick="filterByTag('all')" class="tag-btn active">ALL SETS</button>
+            </div>
 
-            <div id="archive-grid" class="space-y-6">
+            <div id="archive-grid" class="grid gap-8">
                 <!-- ここにリストが入る -->
             </div>
         </div>
 
-        <!-- 詳細画面 -->
+        <!-- 詳細表示 -->
         <div id="detail-view" class="hidden">
-            <button onclick="showList()" class="mb-8 text-stone-400 hover:text-stone-800 flex items-center transition text-xs font-bold uppercase tracking-widest">
-                ← Back
-            </button>
+            <button onclick="showList()" class="mb-8 font-groovy text-xl hover:underline italic">← BACK TO LIST</button>
             
-            <div class="flex flex-col md:flex-row gap-10 mb-16">
-                <div id="detail-flyer-container" class="w-full md:w-1/3">
-                    <img id="detail-flyer" class="w-full rounded-2xl shadow-xl shadow-stone-200">
+            <div class="flex flex-col md:flex-row gap-12 mb-16 items-start">
+                <div id="detail-flyer-container" class="w-full md:w-2/5">
+                    <img id="detail-flyer" class="w-full neo-box rounded-none flyer-img">
                 </div>
                 <div class="flex-1">
-                    <h1 id="event-name" class="header-font text-4xl md:text-5xl text-stone-800 mb-4 leading-tight"></h1>
-                    <div class="flex flex-wrap gap-4 text-xs font-bold text-stone-400 mb-6 uppercase tracking-widest">
-                        <span id="event-date"></span>
-                        <span id="event-venue"></span>
+                    <h1 id="event-name" class="font-groovy text-5xl md:text-7xl leading-none mb-6"></h1>
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <span id="event-date" class="bg-white border-2 border-black px-4 py-1 font-bold shadow-[4px_4px_0_0_#000]"></span>
+                        <span id="event-venue" class="bg-white border-2 border-black px-4 py-1 font-bold shadow-[4px_4px_0_0_#000]"></span>
                     </div>
-                    <p id="event-description" class="text-stone-600 leading-relaxed italic border-l-2 border-stone-200 pl-6 py-1"></p>
-                    <div id="event-tags" class="flex gap-2 mt-6"></div>
+                    <p id="event-description" class="text-xl font-medium leading-relaxed p-6 bg-[#90ee4c] border-4 border-black shadow-[8px_8px_0_0_#000]"></p>
+                    <div id="event-tags" class="flex gap-2 mt-8"></div>
                 </div>
             </div>
 
-            <div id="track-list" class="bg-white rounded-3xl border border-stone-100 overflow-hidden shadow-sm shadow-stone-100"></div>
+            <div id="track-list" class="neo-box overflow-hidden">
+                <!-- 曲リスト -->
+            </div>
         </div>
     </main>
 
@@ -153,8 +164,8 @@
             const tagContainer = document.getElementById('tag-filter');
             tags.forEach(tag => {
                 const btn = document.createElement('button');
-                btn.className = "tag-btn transition";
-                btn.textContent = tag;
+                btn.className = "tag-btn";
+                btn.textContent = tag.toUpperCase();
                 btn.onclick = () => filterByTag(tag, btn);
                 tagContainer.appendChild(btn);
             });
@@ -164,25 +175,25 @@
         function renderGrid(data) {
             const grid = document.getElementById('archive-grid');
             grid.innerHTML = '';
-            data.forEach(item => {
+            data.forEach((item, idx) => {
                 const card = document.createElement('a');
                 card.href = `?id=${item.id}`;
-                card.className = "archive-card flex items-center p-6 gap-6";
+                card.className = "neo-box p-8 flex flex-col md:flex-row gap-8 items-center";
                 
-                const flyerImg = item.flyer ? `data/${item.flyer}` : 'https://via.placeholder.com/300/f5f5f4/a8a29e?text=NO+IMAGE';
+                const flyerImg = item.flyer ? `data/${item.flyer}` : 'https://via.placeholder.com/400?text=NO+IMAGE';
+                const colors = ['var(--groovy-yellow)', 'var(--groovy-green)', 'var(--groovy-blue)'];
+                const bgColor = colors[idx % colors.length];
                 
                 card.innerHTML = `
-                    <div class="flex-1">
-                        <div class="text-[10px] text-stone-400 font-bold mb-2 uppercase tracking-widest font-mono">${item.date}</div>
-                        <h3 class="header-font text-xl md:text-2xl text-stone-800 mb-3">${item.event_name}</h3>
+                    <div class="flex-1 order-2 md:order-1">
+                        <div class="text-sm font-bold mb-2 uppercase tracking-tighter bg-black text-white inline-block px-2">${item.date}</div>
+                        <h3 class="font-groovy text-4xl md:text-5xl leading-tight mb-4">${item.event_name}</h3>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            ${(item.tags || []).map(t => `<span class="text-[9px] text-stone-400 font-bold">#${t}</span>`).join('')}
+                            ${(item.tags || []).map(t => `<span class="font-bold text-sm bg-white border border-black px-1">#${t}</span>`).join('')}
                         </div>
-                        <div class="text-[10px] text-stone-400 font-bold uppercase flex items-center">
-                            📍 ${item.venue || 'Private Space'}
-                        </div>
+                        <div class="font-bold text-lg italic uppercase">@ ${item.venue || 'Space'}</div>
                     </div>
-                    <img src="${flyerImg}" class="flyer-thumb flex-shrink-0 object-cover shadow-sm">
+                    <img src="${flyerImg}" class="w-48 h-48 md:w-64 md:h-64 flyer-img order-1 md:order-2" style="background:${bgColor}">
                 `;
                 grid.appendChild(card);
             });
@@ -202,29 +213,25 @@
 
             document.getElementById('event-name').textContent = data.event_name;
             document.getElementById('event-date').textContent = data.date;
-            document.getElementById('event-venue').textContent = data.venue || 'Private Space';
-            document.getElementById('event-description').textContent = data.description;
+            document.getElementById('event-venue').textContent = data.venue || 'UNKNOWN';
+            document.getElementById('event-description').textContent = data.description || 'LET IT GO...';
             
             const flyerImg = data.flyer ? `data/${data.flyer}` : null;
-            const flyerEl = document.getElementById('detail-flyer');
-            if(flyerImg) {
-                flyerEl.src = flyerImg;
-            } else {
-                document.getElementById('detail-flyer-container').style.display = 'none';
-            }
+            if(flyerImg) document.getElementById('detail-flyer').src = flyerImg;
+            else document.getElementById('detail-flyer-container').style.display = 'none';
 
             const list = document.getElementById('track-list');
             data.tracks.forEach((track, index) => {
                 const artworkUrl = track.artwork ? `data/${track.artwork}` : 'data/artworks/default.jpg';
                 const row = document.createElement('div');
-                row.className = "track-card flex items-center p-4";
+                row.className = "track-card flex items-center p-6";
                 row.innerHTML = `
-                    <div class="w-8 text-stone-200 font-bold text-xs">${index + 1}</div>
-                    <img src="${artworkUrl}" onerror="this.src='data/artworks/default.jpg'" class="w-12 h-12 object-cover rounded-lg mr-4 shadow-sm">
+                    <div class="w-12 font-groovy text-2xl">${index + 1}</div>
+                    <img src="${artworkUrl}" onerror="this.src='data/artworks/default.jpg'" class="w-16 h-16 border-2 border-black mr-6 flex-shrink-0">
                     <div class="flex-1 min-w-0">
-                        <div class="font-bold truncate text-stone-800 text-sm mb-0.5">${track.title}</div>
-                        <div class="text-[10px] text-stone-400 truncate font-bold uppercase tracking-wider">${track.artist}</div>
-                        ${track.comment ? `<div class="comment-box">💬 ${track.comment}</div>` : ''}
+                        <div class="font-bold text-xl truncate">${track.title}</div>
+                        <div class="text-sm font-bold uppercase italic">${track.artist}</div>
+                        ${track.comment ? `<div class="comment-box uppercase">💬 ${track.comment}</div>` : ''}
                     </div>
                 `;
                 list.appendChild(row);
