@@ -22,7 +22,7 @@
             color: var(--groovy-black);
             margin: 0;
             padding: 0;
-            word-wrap: break-word; /* 文字の強制折り返し */
+            word-wrap: break-word;
         }
 
         h1, h2, h3, .font-groovy { 
@@ -88,13 +88,21 @@
         @media (min-width: 768px) {
             .flyer-img { border: 4px solid var(--groovy-black); }
         }
+
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: var(--groovy-orange); }
+        ::-webkit-scrollbar-thumb { 
+            background: var(--groovy-black); 
+            border: 3px solid var(--groovy-orange);
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body class="min-h-screen">
 
     <nav class="sticky top-0 z-50 p-4 mb-6 md:mb-8">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-xl md:text-3xl font-groovy tracking-tighter">DJ ARCHIVE</a>
+            <a href="index.html" class="text-xl md:text-3xl font-groovy tracking-tighter text-black no-underline">DJ ARCHIVE</a>
             <div class="bg-black text-white px-2 py-0.5 md:px-3 md:py-1 text-[8px] md:text-[10px] font-bold uppercase tracking-widest">Library</div>
         </div>
     </nav>
@@ -167,7 +175,7 @@
             data.forEach((item, idx) => {
                 const card = document.createElement('a');
                 card.href = `?id=${item.id}`;
-                card.className = "neo-box p-4 md:p-6 flex flex-col gap-4";
+                card.className = "neo-box p-4 md:p-6 flex flex-col gap-4 no-underline text-black";
                 
                 const flyerImg = item.flyer ? `data/${item.flyer}` : 'https://via.placeholder.com/400?text=NO+IMAGE';
                 const colors = ['var(--groovy-yellow)', 'var(--groovy-green)', 'var(--groovy-blue)'];
@@ -225,12 +233,13 @@
             data.tracks.forEach((track, index) => {
                 const artworkUrl = track.artwork ? `data/${track.artwork}` : 'data/artworks/default.jpg';
                 const row = document.createElement('div');
-                row.className = "track-card flex items-start md:items-center p-4 md:p-6";
+                row.className = "track-card flex items-center p-4 md:p-6";
                 row.innerHTML = `
-                    <div class="w-8 md:w-12 font-groovy text-lg md:text-2xl mt-1 md:mt-0">${index + 1}</div>
+                    <div class="w-10 md:w-20 font-groovy text-xl md:text-4xl flex-shrink-0 whitespace-nowrap mr-2">
+                        ${index + 1}
+                    </div>
                     <img src="${artworkUrl}" onerror="this.src='data/artworks/default.jpg'" class="w-12 h-12 md:w-16 md:h-16 border-2 border-black mr-4 md:mr-6 flex-shrink-0">
                     <div class="flex-1 min-w-0">
-                        <!-- 曲名：truncateを削除し、サイズを可変に -->
                         <div class="font-bold text-sm md:text-xl leading-tight break-words mb-0.5 md:mb-1">${track.title}</div>
                         <div class="text-[10px] md:text-sm font-bold uppercase italic text-gray-700">${track.artist}</div>
                         ${track.comment ? `<div class="comment-box leading-normal uppercase">💬 ${track.comment}</div>` : ''}
