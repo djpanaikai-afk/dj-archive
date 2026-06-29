@@ -31,5 +31,16 @@
             "Vtuber"
         ],
         "flyer": null
+    },
+    {
+        "id": "2026-03-22_Vocaloid_High_82nd",
+        "event_name": "Vocaloid High 82nd",
+        "date": "2026-03-22",
+        "track_count": 34,
+        "venue": "月あかり夢てらす",
+        "tags": [
+            "ボカロ"
+        ],
+        "flyer": "flyers/2026-03-22_Vocaloid_High_82nd.png"
     }
 ]
