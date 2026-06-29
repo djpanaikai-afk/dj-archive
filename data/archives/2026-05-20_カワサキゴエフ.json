@@ -1,8 +1,8 @@
 {
-    "id": "2026-05-17_カワサキゴエフ",
+    "id": "2026-05-20_カワサキゴエフ",
     "event_name": "カワサキゴエフ",
     "venue": "月あかり夢てらす",
-    "date": "2026-05-17",
+    "date": "2026-05-20",
     "tags": [
         "音ゲー"
     ],
@@ -83,7 +83,7 @@
         {
             "title": "Ignited Night",
             "artist": "HHH",
-            "comment": "",
+            "comment": " ",
             "artwork": null
         },
         {
@@ -101,7 +101,7 @@
         {
             "title": "Second Heaven",
             "artist": "Ryu☆",
-            "comment": "",
+            "comment": " ",
             "artwork": null
         },
         {
@@ -113,7 +113,7 @@
         {
             "title": "Be Somewhere",
             "artist": "Buzy",
-            "comment": "",
+            "comment": " ",
             "artwork": "artworks/226848924.jpg"
         },
         {
@@ -125,13 +125,13 @@
         {
             "title": "羞恥心",
             "artist": "低予算",
-            "comment": "",
+            "comment": " ",
             "artwork": null
         },
         {
             "title": "黒髪乱れし修羅となりて",
             "artist": "村正クオリア",
-            "comment": "",
+            "comment": " ",
             "artwork": null
         },
         {
@@ -189,5 +189,5 @@
             "artwork": null
         }
     ],
-    "flyer": "flyers/2026-05-17_カワサキゴエフ.jpg"
+    "flyer": "flyers/2026-05-20_カワサキゴエフ.jpg"
 }

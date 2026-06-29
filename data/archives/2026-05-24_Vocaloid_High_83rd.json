@@ -1,6 +1,6 @@
 {
-    "id": "2026-05-24_ボカハイ",
-    "event_name": "ボカハイ",
+    "id": "2026-05-24_Vocaloid_High_83rd",
+    "event_name": "Vocaloid High 83rd",
     "venue": "月あかり夢てらす",
     "date": "2026-05-24",
     "tags": [
@@ -17,7 +17,7 @@
         {
             "title": "Sweet Devil",
             "artist": "初音ミク",
-            "comment": "パチンコ『CR新世紀エヴァンゲリオン~最後のシ者~』",
+            "comment": "",
             "artwork": null
         },
         {
@@ -33,12 +33,6 @@
             "artwork": null
         },
         {
-            "title": "true my heart -HATSUNE mix-",
-            "artist": "ave;new Feat. 初音ミク",
-            "comment": "",
-            "artwork": "artworks/132608788.jpg"
-        },
-        {
             "title": "深海少女 (feat. 花里みのり&桐谷遥&桃井愛莉&日野森雫&初音ミク)",
             "artist": "MORE MORE JUMP！",
             "comment": "",
@@ -49,12 +43,6 @@
             "artist": "とあ Feat. 初音ミク",
             "comment": "",
             "artwork": "artworks/202053540.jpg"
-        },
-        {
-            "title": "VIP STAR",
-            "artist": null,
-            "comment": "",
-            "artwork": null
         },
         {
             "title": "ダブルラリアット",
@@ -83,7 +71,7 @@
         {
             "title": "キティ Short Edit",
             "artist": "25時、ナイトコードで。",
-            "comment": "",
+            "comment": " ",
             "artwork": null
         },
         {
@@ -101,7 +89,7 @@
         {
             "title": "僕らまだアンダーグラウンド (feat. 星乃一歌&日野森志歩&初音ミク)",
             "artist": "Leo/need",
-            "comment": "",
+            "comment": " ",
             "artwork": "artworks/117079024.jpg"
         },
         {
@@ -113,7 +101,7 @@
         {
             "title": "バレリーコ",
             "artist": "ミキト(みきとP)",
-            "comment": "",
+            "comment": " ",
             "artwork": "artworks/102696227.jpg"
         },
         {
@@ -125,13 +113,13 @@
         {
             "title": "デーモンロード",
             "artist": "Kanaria",
-            "comment": "",
+            "comment": " ",
             "artwork": "artworks/91241763.jpg"
         },
         {
             "title": "DOGMA (feat. 初音ミク)",
             "artist": "wotaku",
-            "comment": "",
+            "comment": " ",
             "artwork": "artworks/240142410.jpg"
         },
         {
@@ -147,5 +135,5 @@
             "artwork": "artworks/10081301.jpg"
         }
     ],
-    "flyer": "flyers/2026-05-24_ボカハイ.png"
+    "flyer": "flyers/2026-05-24_Vocaloid_High_83rd.jpg"
 }

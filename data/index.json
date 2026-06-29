@@ -1,45 +1,24 @@
 [
     {
-        "id": "2026-05-24_ボカハイ",
-        "event_name": "ボカハイ",
+        "id": "2026-05-24_Vocaloid_High_83rd",
+        "event_name": "Vocaloid High 83rd",
         "date": "2026-05-24",
-        "track_count": 23,
+        "track_count": 21,
         "venue": "月あかり夢てらす",
         "tags": [
             "ボカロ"
         ],
-        "flyer": "flyers/2026-05-24_ボカハイ.png"
+        "flyer": "flyers/2026-05-24_Vocaloid_High_83rd.jpg"
     },
     {
-        "id": "2026-05-17_カワサキゴエフ",
+        "id": "2026-05-20_カワサキゴエフ",
         "event_name": "カワサキゴエフ",
-        "date": "2026-05-17",
+        "date": "2026-05-20",
         "track_count": 30,
         "venue": "月あかり夢てらす",
         "tags": [
             "音ゲー"
         ],
-        "flyer": "flyers/2026-05-17_カワサキゴエフ.jpg"
-    },
-    {
-        "id": "2026-05-14_Laぶい",
-        "event_name": "Laぶい",
-        "date": "2026-05-14",
-        "track_count": 25,
-        "venue": "月あかり夢てらす",
-        "tags": [
-            "Vtuber"
-        ]
-    },
-    {
-        "id": "2026-03-22_ボカハイ",
-        "event_name": "ボカハイ",
-        "date": "2026-03-22",
-        "track_count": 34,
-        "venue": "月あかり夢てらす",
-        "tags": [
-            "ボカロ"
-        ],
-        "flyer": "flyers/2026-03-22_ボカハイ.png"
+        "flyer": "flyers/2026-05-20_カワサキゴエフ.jpg"
     }
 ]
