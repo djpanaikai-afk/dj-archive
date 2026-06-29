@@ -114,7 +114,6 @@
             <div class="mb-8 md:mb-12 flex flex-wrap gap-2 md:gap-4 justify-center" id="tag-filter">
                 <button onclick="filterByTag('all')" class="tag-btn active">ALL SETS</button>
             </div>
-
             <div id="archive-grid" class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-2"></div>
         </div>
 
@@ -123,8 +122,8 @@
             <button onclick="showList()" class="mb-6 md:mb-8 font-groovy text-lg md:text-xl hover:underline italic">← BACK TO LIST</button>
             
             <div class="flex flex-col md:flex-row gap-8 md:gap-12 mb-12 md:mb-16 items-start">
-                <div id="detail-flyer-container" class="w-full md:w-2/5">
-                    <img id="detail-flyer" class="w-full neo-box rounded-none flyer-img">
+                <div id="detail-flyer-container" class="w-full md:w-2/5" style="display:none;">
+                    <img id="detail-flyer" onerror="this.parentElement.style.display='none'" class="w-full neo-box rounded-none flyer-img">
                 </div>
                 <div class="flex-1">
                     <h1 id="event-name" class="font-groovy text-3xl md:text-7xl leading-tight mb-4 md:mb-6"></h1>
@@ -177,12 +176,16 @@
                 card.href = `?id=${item.id}`;
                 card.className = "neo-box p-4 md:p-6 flex flex-col gap-4 no-underline text-black";
                 
-                const flyerImg = item.flyer ? `data/${item.flyer}` : 'https://via.placeholder.com/400?text=NO+IMAGE';
                 const colors = ['var(--groovy-yellow)', 'var(--groovy-green)', 'var(--groovy-blue)'];
                 const bgColor = colors[idx % colors.length];
                 
+                // フライヤーがある時だけimgタグを生成
+                const flyerHtml = item.flyer 
+                    ? `<img src="data/${item.flyer}" onerror="this.style.display='none'" class="w-full h-48 md:h-64 flyer-img" style="background:${bgColor}">`
+                    : '';
+                
                 card.innerHTML = `
-                    <img src="${flyerImg}" class="w-full h-48 md:h-64 flyer-img" style="background:${bgColor}">
+                    ${flyerHtml}
                     <div class="flex-1">
                         <div class="text-[8px] md:text-[10px] font-bold mb-1 md:mb-2 uppercase tracking-tighter bg-black text-white inline-block px-2">${item.date}</div>
                         <h3 class="font-groovy text-xl md:text-3xl leading-tight mb-2 md:mb-3">${item.event_name}</h3>
@@ -220,12 +223,15 @@
                 descEl.classList.add('hidden');
             }
             
+            // 詳細画面のフライヤー表示
             const flyerImg = data.flyer ? `data/${data.flyer}` : null;
+            const flyerContainer = document.getElementById('detail-flyer-container');
             if(flyerImg) {
-                document.getElementById('detail-flyer').src = flyerImg;
-                document.getElementById('detail-flyer-container').style.display = 'block';
+                const img = document.getElementById('detail-flyer');
+                img.src = flyerImg;
+                flyerContainer.style.display = 'block';
             } else {
-                document.getElementById('detail-flyer-container').style.display = 'none';
+                flyerContainer.style.display = 'none';
             }
 
             const list = document.getElementById('track-list');
