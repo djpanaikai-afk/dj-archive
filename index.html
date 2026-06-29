@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DJ ARCHIVE</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Lexend:wght@400;700&family=Noto+Sans+JP:wght@900&display=swap" rel="stylesheet">
     <style>
         :root {
             --groovy-orange: #e45f2b;
@@ -17,7 +17,7 @@
         }
 
         body { 
-            font-family: 'Lexend', sans-serif;
+            font-family: 'Lexend', 'Noto Sans JP', sans-serif;
             background-color: var(--groovy-orange);
             color: var(--groovy-black);
             margin: 0;
@@ -26,8 +26,9 @@
         }
 
         h1, h2, h3, .font-groovy { 
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Noto Sans JP', sans-serif;
             text-transform: uppercase;
+            font-weight: 900;
         }
 
         .neo-box {
@@ -93,18 +94,17 @@
         #detail-flyer {
             width: 100%;
             height: auto;
-            max-height: 400px; /* スマホ用 */
+            max-height: 400px;
             object-fit: cover;
         }
         @media (min-width: 768px) {
             #detail-flyer {
-                max-height: 300px; /* PC用：高さを300pxに制限 */
-                width: auto;       /* 横幅は自動調整（縦横比維持） */
-                max-width: 100%;   /* 親要素からはみ出さない */
-                object-fit: contain; /* 全体を表示 */
-                background: var(--groovy-black); /* 縦長で余白が出る場合は黒で埋める */
+                max-height: 300px;
+                width: auto;
+                max-width: 100%;
+                object-fit: contain;
+                background: var(--groovy-black);
                 display: block;
-                margin-left: 0;
             }
         }
 
@@ -121,7 +121,7 @@
 
     <nav class="sticky top-0 z-50 p-4 mb-6 md:mb-8">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-xl md:text-3xl font-groovy tracking-tighter text-black no-underline">DJ ARCHIVE</a>
+            <a href="index.html" class="text-xl md:text-3xl font-groovy tracking-tighter text-black no-underline italic">DJ ARCHIVE</a>
             <div class="bg-black text-white px-2 py-0.5 md:px-3 md:py-1 text-[8px] md:text-[10px] font-bold uppercase tracking-widest">Library</div>
         </div>
     </nav>
@@ -138,20 +138,24 @@
 
         <!-- 詳細表示 -->
         <div id="detail-view" class="hidden">
-            <button onclick="showList()" class="mb-6 md:mb-8 font-groovy text-lg md:text-xl hover:underline italic">← BACK TO LIST</button>
+            <button onclick="showList()" class="mb-6 md:mb-10 font-groovy text-lg md:text-xl hover:text-white transition-colors flex items-center italic">
+                <span class="mr-2">←</span> BACK TO LIST
+            </button>
             
-            <div class="flex flex-col md:flex-row gap-8 md:gap-12 mb-12 md:mb-16 items-start">
-                <div id="detail-flyer-container" class="w-full md:w-2/5" style="display:none;">
-                    <img id="detail-flyer" onerror="this.parentElement.style.display='none'" class="neo-box rounded-none flyer-img">
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 mb-12 md:mb-16 items-center md:items-center">
+                <!-- フライヤー -->
+                <div id="detail-flyer-container" class="w-full md:w-auto flex-shrink-0" style="display:none;">
+                    <img id="detail-flyer" onerror="this.parentElement.style.display='none'" class="neo-box rounded-none flyer-img mx-auto md:mx-0">
                 </div>
-                <div class="flex-1">
-                    <h1 id="event-name" class="font-groovy text-3xl md:text-7xl leading-tight mb-4 md:mb-6"></h1>
-                    <div class="flex flex-wrap gap-3 mb-6">
-                        <span id="event-date" class="bg-white border-2 border-black px-3 py-1 text-xs md:text-base font-bold shadow-[3px_3px_0_0_#000] md:shadow-[4px_4px_0_0_#000]"></span>
-                        <span id="event-venue" class="bg-white border-2 border-black px-3 py-1 text-xs md:text-base font-bold shadow-[3px_3px_0_0_#000] md:shadow-[4px_4px_0_0_#000]"></span>
+                <!-- テキスト情報 -->
+                <div class="flex-1 text-center md:text-left">
+                    <h1 id="event-name" class="font-groovy text-4xl md:text-7xl leading-none mb-6 tracking-tighter drop-shadow-[4px_4px_0px_rgba(0,0,0,0.2)]"></h1>
+                    <div class="flex flex-wrap gap-3 justify-center md:justify-start mb-6">
+                        <span id="event-date" class="bg-white border-2 border-black px-4 py-1 text-sm md:text-lg font-bold shadow-[4px_4px_0_0_#000]"></span>
+                        <span id="event-venue" class="bg-white border-2 border-black px-4 py-1 text-sm md:text-lg font-bold shadow-[4px_4px_0_0_#000]"></span>
                     </div>
                     <p id="event-description" class="hidden text-sm md:text-xl font-medium leading-relaxed p-4 md:p-6 bg-[#90ee4c] border-4 border-black shadow-[6px_6px_0_0_#000] md:shadow-[8px_8px_0_0_#000]"></p>
-                    <div id="event-tags" class="flex flex-wrap gap-2 mt-6"></div>
+                    <div id="event-tags" class="flex flex-wrap gap-2 justify-center md:justify-start mt-6"></div>
                 </div>
             </div>
 
@@ -262,7 +266,7 @@
                         ${index + 1}
                     </div>
                     <img src="${artworkUrl}" onerror="this.src='data/artworks/default.jpg'" class="w-12 h-12 md:w-16 md:h-16 border-2 border-black mr-4 md:mr-6 flex-shrink-0">
-                    <div class="flex-1 min-w-0">
+                    <div class="flex-1 min-w-0 text-left">
                         <div class="font-bold text-sm md:text-xl leading-tight break-words mb-0.5 md:mb-1">${track.title}</div>
                         <div class="text-[10px] md:text-sm font-bold uppercase italic text-gray-700">${track.artist}</div>
                         ${track.comment ? `<div class="comment-box leading-normal uppercase">💬 ${track.comment}</div>` : ''}
