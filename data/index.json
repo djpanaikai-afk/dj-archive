@@ -42,5 +42,49 @@
             "ボカロ"
         ],
         "flyer": "flyers/2026-03-22_Vocaloid_High_82nd.png"
+    },
+    {
+        "id": "2026-01-04_水曜日のヌマ_Vol82",
+        "event_name": "水曜日のヌマ Vol.82",
+        "date": "2026-01-04",
+        "track_count": 24,
+        "venue": "Section9",
+        "tags": [
+            "アニソン"
+        ],
+        "flyer": "flyers/2026-01-04_水曜日のヌマ_Vol82.jpg"
+    },
+    {
+        "id": "2025-11-23_Vocaloid_High_81st",
+        "event_name": "Vocaloid High 81st",
+        "date": "2025-11-23",
+        "track_count": 27,
+        "venue": "月あかり夢てらす",
+        "tags": [
+            "ボカロ"
+        ],
+        "flyer": "flyers/2025-11-23_Vocaloid_High_81st.png"
+    },
+    {
+        "id": "2025-09-15_Vocaloid_High_80th",
+        "event_name": "Vocaloid High 80th",
+        "date": "2025-09-15",
+        "track_count": 31,
+        "venue": "月あかり夢てらす",
+        "tags": [
+            "ボカロ"
+        ],
+        "flyer": "flyers/2025-09-15_Vocaloid_High_80th.png"
+    },
+    {
+        "id": "2025-08-31_Vtuberと_音楽は_強いのが好き",
+        "event_name": "Vtuberと 音楽は 強いのが好き!!",
+        "date": "2025-08-31",
+        "track_count": 18,
+        "venue": "Section9",
+        "tags": [
+            "Vtuber"
+        ],
+        "flyer": "flyers/2025-08-31_Vtuberと_音楽は_強いのが好き.jpg"
     }
 ]
